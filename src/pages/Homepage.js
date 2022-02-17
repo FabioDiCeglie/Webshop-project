@@ -7,6 +7,9 @@ export default function Homepage() {
       <Link to="/login">
         <button>Log In</button>
       </Link>
+      <Link to="/signup">
+        <button>Sign up</button>
+      </Link>
     </div>
   );
 }
