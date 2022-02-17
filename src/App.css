@@ -1,0 +1,11 @@
+.homepageBlock {
+}
+.productBlock {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.productCard {
+  max-width: 300px;
+  margin: 20px;
+}

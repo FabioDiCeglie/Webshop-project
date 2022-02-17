@@ -17,7 +17,7 @@ export default function Homepage() {
   //console.log("what are all categories", allCategories);
   //console.log("what are all products", allProducts);
   useEffect(() => {
-    console.log(filterByCategory);
+    //console.log(filterByCategory);
     if (filterByCategory === "all") {
       setFilteredList(allProducts);
     } else {
@@ -62,24 +62,30 @@ export default function Homepage() {
       >
         <option value="all">AllCategories</option>
 
-        {allCategories.map((category) => (
-          <option value={category.id}>{category.title}</option>
+        {allCategories.map((category, i) => (
+          <option value={category.id} key={i}>
+            {category.title}
+          </option>
         ))}
       </select>
-      {filteredList
-        ? filteredList.map((product, i) => (
-            <div key={i}>
-              <h4> Product : {product.title}</h4>
-              <img
-                style={{ width: 200 }}
-                src={product.mainImage}
-                alt={product.title}
-              />
-              <p>Price: {product.price}</p>
-              <p>Rating: {product.rating}</p>
-            </div>
-          ))
-        : "Loading"}
+      <div className="homepageBlock">
+        <div className="productBlock">
+          {filteredList
+            ? filteredList.map((product, i) => (
+                <div key={i} className="productCard">
+                  <h4> Product : {product.title}</h4>
+                  <img
+                    style={{ width: 200 }}
+                    src={product.mainImage}
+                    alt={product.title}
+                  />
+                  <p>Price: {product.price}</p>
+                  <p>Rating: {product.rating}</p>
+                </div>
+              ))
+            : "Loading"}
+        </div>
+      </div>
     </div>
   );
 }
