@@ -1,20 +1,47 @@
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../store/auth/actions";
-import { useEffect } from "react";
-import { getAllProducts } from "../store/homepage/actions";
+import { useEffect, useState } from "react";
+import { getAllProducts, getAllCategories } from "../store/homepage/actions";
 import { useSelector } from "react-redux";
-import { getProducts } from "../store/homepage/selectors";
+import { getProducts, getCategories } from "../store/homepage/selectors";
 export default function Homepage() {
   const dispatch = useDispatch();
 
-  const allProducts = useSelector(getProducts);
+  const [filterByCategory, setFilterByCategory] = useState("all");
+  const [filteredList, setFilteredList] = useState(null);
 
+  const allProducts = useSelector(getProducts);
+  const allCategories = useSelector(getCategories);
+
+  //console.log("what are all categories", allCategories);
   //console.log("what are all products", allProducts);
+  useEffect(() => {
+    console.log(filterByCategory);
+    if (filterByCategory === "all") {
+      setFilteredList(allProducts);
+    } else {
+      setFilteredList(
+        allProducts.filter((p) => {
+          return p.categoryId === parseInt(filterByCategory);
+        })
+      );
+    }
+  }, [filterByCategory, allProducts]);
+
+  //console.log(filterByCategory);
+
+  useEffect(() => {
+    if (allProducts) {
+      setFilteredList(allProducts);
+    }
+  }, [allProducts]);
 
   useEffect(() => {
     dispatch(getAllProducts());
+    dispatch(getAllCategories());
   }, []);
+
   return (
     <div>
       <div>
@@ -29,8 +56,18 @@ export default function Homepage() {
           <button onClick={() => dispatch(logout())}>Log out</button>
         </Link>
       </div>
-      {allProducts
-        ? allProducts.map((product, i) => (
+      <select
+        value={filterByCategory}
+        onChange={(e) => setFilterByCategory(e.target.value)}
+      >
+        <option value="all">AllCategories</option>
+
+        {allCategories.map((category) => (
+          <option value={category.id}>{category.title}</option>
+        ))}
+      </select>
+      {filteredList
+        ? filteredList.map((product, i) => (
             <div key={i}>
               <h4> Product : {product.title}</h4>
               <img
