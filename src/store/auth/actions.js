@@ -6,10 +6,7 @@ export const logInAction = (data) => ({
 });
 
 export function login(email, password) {
-  // Return the thunk itself, i.e. a function
   return async function thunk(dispatch, getState) {
-    // TODO:
-    // make a POST API request to `/login`
     const requestToken = await axios.post("http://localhost:4000/auth/login", {
       email,
       password,
@@ -75,5 +72,33 @@ export function signup(email, password, name) {
     console.log("what is signUp", requestSignUp.data);
 
     dispatch(signUpAction({ email, password, name }));
+  };
+}
+
+export const updateUser = (data) => ({
+  type: "profile/updateUser",
+  payload: data,
+});
+
+export function updateSpecificUser(email, name, id) {
+  return async function thunk(dispatch, getState) {
+    try {
+      const token = localStorage.getItem("token");
+      //console.log("check token", token);
+      if (!token) return;
+      const requestUpdateUser = await axios.put(
+        `http://localhost:4000/auth/users/${id}`,
+        {
+          name,
+          email,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      console.log("what is updateUser", requestUpdateUser.data);
+      dispatch(requestUpdateUser.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 }

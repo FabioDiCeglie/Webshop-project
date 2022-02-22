@@ -24,6 +24,13 @@ export default function userReducer(state = initialState, action) {
         me: action.payload,
       };
     }
+    case "profile/updateUser": {
+      console.log("what is the action update", action.payload);
+      return {
+        ...state,
+        me: action.payload,
+      };
+    }
     default: {
       return state;
     }

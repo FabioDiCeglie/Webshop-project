@@ -21,38 +21,41 @@ export default function LogInPage() {
 
   return (
     <div>
-      {!loggedIn ? (
-        <div>
-          <h1>Login</h1>
-          <form onSubmit={handleSubmit}>
-            <p>
-              <label>
-                Email:{" "}
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </label>
-            </p>
-            <p>
-              <label>
-                Password:{" "}
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </label>
-            </p>
-            <p>
+      <div>
+        <h1>Login</h1>
+        <form onSubmit={handleSubmit}>
+          <p>
+            <label>
+              Email:{" "}
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </label>
+          </p>
+          <p>
+            <label>
+              Password:{" "}
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </label>
+          </p>
+          <p>
+            {loggedIn ? (
+              <Link to="/">
+                <button type="submit">Login</button>
+              </Link>
+            ) : (
               <button type="submit">Login</button>
-            </p>
-          </form>
-        </div>
-      ) : (
-        "You are logged in"
-      )}
+            )}
+          </p>
+        </form>
+      </div>
+
       <Link to="/">
         <button>Homepage</button>
       </Link>
