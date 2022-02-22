@@ -12,9 +12,9 @@ export function getAllProducts() {
     // make a POST API request to `/login`
     const response = await axios.get("http://localhost:4000/products");
 
-    //console.log("what is response", response.data.result);
+    //console.log("what is response", response.data);
 
-    const products = response.data.result;
+    const products = response.data;
     dispatch(getProducts(products));
   };
 }

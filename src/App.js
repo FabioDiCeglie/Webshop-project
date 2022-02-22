@@ -6,6 +6,7 @@ import SignUpPage from "./pages/SignUpPage";
 import { useDispatch } from "react-redux";
 import { persistLogIn } from "../src/store/auth/actions";
 import { useEffect } from "react";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ function App() {
         <Route path="/" element={<Homepage />}></Route>
         <Route path="/login" element={<LogInPage />}></Route>
         <Route path="/signup" element={<SignUpPage />}></Route>
+        <Route path="/profile/user" element={<ProfilePage />}></Route>
       </Routes>
     </div>
   );

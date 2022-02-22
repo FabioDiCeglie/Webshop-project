@@ -42,7 +42,7 @@ export function persistLogIn() {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    const profile = requestProfile.data;
+    const profile = requestProfile.data.auth_user;
     console.log("me", profile);
 
     dispatch(logInAction({ token, profile }));

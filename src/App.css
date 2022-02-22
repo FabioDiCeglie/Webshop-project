@@ -9,3 +9,7 @@
   max-width: 300px;
   margin: 20px;
 }
+
+.ImageProduct {
+  border: 2px solid black;
+}

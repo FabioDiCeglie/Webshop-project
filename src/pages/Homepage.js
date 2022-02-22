@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getAllProducts, getAllCategories } from "../store/homepage/actions";
 import { useSelector } from "react-redux";
 import { getProducts, getCategories } from "../store/homepage/selectors";
+import { signUp } from "../store/auth/selectors";
 export default function Homepage() {
   const dispatch = useDispatch();
 
@@ -13,6 +14,7 @@ export default function Homepage() {
 
   const allProducts = useSelector(getProducts);
   const allCategories = useSelector(getCategories);
+  const userLoggedIn = useSelector(signUp);
 
   //console.log("what are all categories", allCategories);
   //console.log("what are all products", allProducts);
@@ -55,6 +57,9 @@ export default function Homepage() {
         <Link to="/">
           <button onClick={() => dispatch(logout())}>Log out</button>
         </Link>
+        <Link to="/profile/user">
+          <button>Profile</button>
+        </Link>
       </div>
       <select
         value={filterByCategory}
@@ -73,8 +78,10 @@ export default function Homepage() {
           {filteredList
             ? filteredList.map((product, i) => (
                 <div key={i} className="productCard">
+                  {userLoggedIn ? <button>X</button> : ""}
                   <h4> Product : {product.title}</h4>
                   <img
+                    className="ImageProduct"
                     style={{ width: 200 }}
                     src={product.mainImage}
                     alt={product.title}
