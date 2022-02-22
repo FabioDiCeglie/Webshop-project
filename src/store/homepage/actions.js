@@ -18,6 +18,27 @@ export function getAllProducts() {
     dispatch(getProducts(products));
   };
 }
+
+export const deleteProduct = (id) => ({
+  type: "homepage/deleteProduct",
+  payload: id,
+});
+
+export function deleteOneProduct(id) {
+  return async function thunk(dispatch, getState) {
+    try {
+      const response = await axios.delete(
+        `http://localhost:4000/products/delete/${id}`
+      );
+
+      console.log("what is response", response.data);
+
+      dispatch(deleteProduct(id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 export const getCategories = (data) => ({
   type: "homepage/getCategories",
   payload: data,

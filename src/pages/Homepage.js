@@ -2,7 +2,11 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../store/auth/actions";
 import { useEffect, useState } from "react";
-import { getAllProducts, getAllCategories } from "../store/homepage/actions";
+import {
+  getAllProducts,
+  getAllCategories,
+  deleteOneProduct,
+} from "../store/homepage/actions";
 import { useSelector } from "react-redux";
 import { getProducts, getCategories } from "../store/homepage/selectors";
 import { signUp } from "../store/auth/selectors";
@@ -57,9 +61,13 @@ export default function Homepage() {
         <Link to="/">
           <button onClick={() => dispatch(logout())}>Log out</button>
         </Link>
-        <Link to="/profile/user">
-          <button>Profile</button>
-        </Link>
+        {userLoggedIn ? (
+          <Link to="/profile/user">
+            <button>Profile</button>
+          </Link>
+        ) : (
+          ""
+        )}
       </div>
       <select
         value={filterByCategory}
@@ -78,7 +86,15 @@ export default function Homepage() {
           {filteredList
             ? filteredList.map((product, i) => (
                 <div key={i} className="productCard">
-                  {userLoggedIn ? <button>X</button> : ""}
+                  {userLoggedIn ? (
+                    <button
+                      onClick={() => dispatch(deleteOneProduct(product.id))}
+                    >
+                      X
+                    </button>
+                  ) : (
+                    ""
+                  )}
                   <h4> Product : {product.title}</h4>
                   <img
                     className="ImageProduct"
