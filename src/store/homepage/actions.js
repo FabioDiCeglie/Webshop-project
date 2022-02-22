@@ -27,8 +27,16 @@ export const deleteProduct = (id) => ({
 export function deleteOneProduct(id) {
   return async function thunk(dispatch, getState) {
     try {
+      const token = localStorage.getItem("token");
+      //console.log("check token", token);
+      if (!token) return;
+
+      //const profile = requestProfile.data.auth_user;
       const response = await axios.delete(
-        `http://localhost:4000/products/delete/${id}`
+        `http://localhost:4000/products/delete/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
 
       console.log("what is response", response.data);

@@ -21,6 +21,7 @@ export default function productsReducer(state = initialState, action) {
     }
     case "homepage/deleteProduct": {
       //console.log("what is the delete action", action.payload);
+      //copy the state
       const newState = { ...state };
       //console.log("state", newState);
       const filteredProducts = newState.products.filter(
