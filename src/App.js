@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { persistLogIn } from "../src/store/auth/actions";
 import { useEffect } from "react";
 import ProfilePage from "./pages/ProfilePage";
+import DetailsPage from "./pages/DetailsPage/DetailsPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Homepage />}></Route>
+        <Route path="/products/details/:id" element={<DetailsPage />}></Route>
         <Route path="/login" element={<LogInPage />}></Route>
         <Route path="/signup" element={<SignUpPage />}></Route>
         <Route path="/profile/user" element={<ProfilePage />}></Route>

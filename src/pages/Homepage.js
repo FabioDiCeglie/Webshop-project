@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../store/auth/actions";
 import { useEffect, useState } from "react";
+
 import {
   getAllProducts,
   getAllCategories,
@@ -95,7 +96,9 @@ export default function Homepage() {
                   ) : (
                     ""
                   )}
-                  <h4> Product : {product.title}</h4>
+                  <Link to={`/products/details/${product.id}`}>
+                    <h4> Product : {product.title}</h4>
+                  </Link>
                   <img
                     className="ImageProduct"
                     style={{ width: 200 }}
